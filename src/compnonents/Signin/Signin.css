@@ -1,0 +1,11 @@
+.btn,
+.btn:hover {
+    background-color: #343A40;
+    color: white;
+}
+
+.forgot-password,
+.forgot-password:hover {
+    text-decoration: none;
+    color: black;
+}
