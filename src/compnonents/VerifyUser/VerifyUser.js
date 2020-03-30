@@ -9,9 +9,13 @@ import Spinner from '../../containers/Spinner/Spinner';
 class VerifyUser extends Component {
     state = {
         isVerified : false,
+        showLoading : false
     }
 
     componentDidMount () {
+        this.setState({
+            showLoading : true
+        })
         const parsed = queryString.parse(this.props.location.search);
         axios.post('/verifyUser',{
             token : parsed.token,
@@ -23,7 +27,7 @@ class VerifyUser extends Component {
             }
         })
         .then((response) => {
-            ToastifySuccess(response.data.message,()=> {
+            ToastifySuccess(response.data.message + ' ,Redirecting to home page',()=> {
                 this.setState({
                     isVerified : true
                 })
@@ -33,7 +37,11 @@ class VerifyUser extends Component {
             if(error.response && error.response && error.response.data) 
             {
                 console.log(error.response.data);
-                ToastifyError(error.response.data.error);
+                ToastifyError(error.response.data.error,() => {
+                    this.setState({
+                        showLoading : false
+                    })
+                });
             }
             else console.log(error);
         })
@@ -41,7 +49,7 @@ class VerifyUser extends Component {
 
     render() {
         
-        if(this.state.isVerified === true || isAuthenticated() ) {
+        if(this.state.isVerified === true) {
             return (
                 <Redirect to="/" />
             )
@@ -56,8 +64,10 @@ class VerifyUser extends Component {
                     </div>
 
                     <div className="col-sm-4">
-                        <h1>Verifying Account,after verification you will be redirected to Home page</h1>
-                        <Spinner />
+                        <h1>Verifying Account</h1>
+                        {
+                            this.state.showLoading ? <Spinner /> : null
+                        }
                     </div>
                     
                     <div className="col-sm-4">

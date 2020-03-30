@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import { ToastifyError, ToastifySuccess } from '../../containers/React-Toastify/React-Toastify';
 import Layout from '../../Layout';
@@ -31,14 +32,14 @@ class ResetPassword extends Component {
             ToastifyError('Password cannot be empty');
         }
         else if(new_password !== confirm_new_password) {
-            ToastifySuccess('Both Passwords must match');
+            ToastifyError('Both Passwords must match');
         }
         else {
             const parsed = queryString.parse(this.props.location.search);
             let obj = { new_password, token : parsed.token, email : parsed.email }
             axios.post('/resetPassword',{
                 email : parsed.email,
-                new_password : obj.new_password,
+                password : obj.new_password,
                 token : obj.token
             },{
                 headers : {
@@ -47,7 +48,11 @@ class ResetPassword extends Component {
                 }
             })
             .then((response) => {
-                ToastifySuccess(response.message +"Please Signin.");
+                ToastifySuccess(response.data.message +"Please Signin.",() => {
+                    this.setState({
+                        redirectToReferer : true
+                    })
+                });
             })
             .catch((error) => {
                 if(error.response) {
@@ -61,6 +66,13 @@ class ResetPassword extends Component {
     }
 
     render() {
+
+        if(this.state.redirectToReferer ===  true) {
+            return (
+                <Redirect to="/signin" />
+            );
+        }
+
         return (
             <Layout>
                 

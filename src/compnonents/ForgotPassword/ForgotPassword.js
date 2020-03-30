@@ -44,7 +44,7 @@ class ForgotPassword extends Component {
             this.setState({
                 showLoading : false
             })
-            ToastifySuccess(response.message);
+            ToastifySuccess(response.data.message);
         })
         .catch((error) => {
             this.setState({

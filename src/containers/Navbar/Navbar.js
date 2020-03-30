@@ -8,8 +8,6 @@ const Navbar = ({ history }) => {
     return (
         <nav className="navbar navbar-expand-md bg-dark navbar-dark">
             
-            <NavLink to="/" className="navbar-brand" activeClassName="active-link">Quoral</NavLink>
-            
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -19,7 +17,11 @@ const Navbar = ({ history }) => {
                     {
                         !isAuthenticated() 
                         ? 
-                            <>
+                            <>  
+                                <li className="nav-item">
+                                    <NavLink to="/" className="navbar-brand" activeClassName="active-link">Quoral</NavLink>
+                                </li>
+
                                 <li className="nav-item">
                                     <NavLink to="/signin" className="nav-NavLink" activeClassName="active-link">Sign In</NavLink>
                                 </li>
@@ -27,15 +29,20 @@ const Navbar = ({ history }) => {
                                 <li className="nav-item">
                                     <NavLink to="/signup" className="nav-NavLink" activeClassName="active-link">Sign Up</NavLink>
                                 </li>
-                            </> 
+                            </>
                         :
                             <>
                                 <li className="nav-item">
+                                    <NavLink to="/" className="navbar-brand" activeClassName="active-link">Quoral</NavLink>
+                                </li>
+
+                                <li className="nav-item">    
                                     <NavLink 
-                                        to="#" 
-                                        onClick={() => signout(() => history.push("/"))}
-                                        className="nav-NavLink" 
-                                        activeClassName="active-link" > Logout</NavLink>
+                                            to="#" 
+                                            onClick={() => signout(() => history.push("/"))}
+                                            className="nav-NavLink" 
+                                            activeClassName="active-link" > Logout</NavLink>
+
                                 </li>
                             </>
                     }

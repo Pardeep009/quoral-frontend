@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { ToastifyError, ToastifySuccess } from '../../containers/React-Toastify/React-Toastify';
+import Layout from '../../Layout';
 // import './Signup.css';
 import { signup, isAuthenticated, authenticate } from '../../auth/index';
 import Spinner from '../../containers/Spinner/Spinner';
@@ -55,6 +56,7 @@ class Signup extends Component {
             this.setState({
                 showLoading : false
             })
+            console.log(data);
             if(data.error) {
                 // console.log(data);
                 ToastifyError(data.error);
@@ -83,12 +85,9 @@ class Signup extends Component {
         }
 
         return (
-                <div className="row mainPage">
-                    <div className="col-sm-4">
+                <Layout>
+                    <div className="form-group">
 
-                    </div>
-                    <div className="col-sm-4">                               
-                                <div className="form-group">
                                     {/* <label className="control-label col-sm-2" htmlFor="username">Username:</label> */}
                                     <div className="col-sm-10">
                                         <input 
@@ -130,17 +129,12 @@ class Signup extends Component {
                                     </div>
                                 </div>
                            
-                                    <div className="form-group">
-                                        <div className="col-sm-offset-2 col-sm-10">
-                                            <button type="button" className="btn" onClick={this.signup}>Signup</button>
-                                        </div>
+                                <div className="form-group">
+                                    <div className="col-sm-offset-2 col-sm-10">
+                                        <button type="button" className="btn" onClick={this.signup}>Signup</button>
                                     </div>
-        
-                    </div>
-                    <div className="col-sm-4">
-
-                    </div>
-                </div>
+                                </div>
+                </Layout>        
         )
     }
 }

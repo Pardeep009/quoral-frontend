@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import Layout from '../../Layout';
 
 class Home extends Component {
 
-    
-
     render() {
         return (
-            <p>Home</p>
+            <Layout>
+                jhk
+            </Layout>
         )
     }
 }
